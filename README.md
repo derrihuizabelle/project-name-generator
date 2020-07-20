@@ -2,7 +2,8 @@
 ### PROJECT NAME GENERATOR
 ```
 Name generator for projects. Backend and Frontend has it owns Readme for installations.
-In this project I made a name generator that leads you to a host shop and tells you if the choosed domain is available.
+In this project I made a name generator that leads you to 
+a host shop and tells you if the choosed domain is available.
 ```
 
 ### Backend
