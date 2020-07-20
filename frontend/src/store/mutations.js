@@ -10,10 +10,13 @@ export default {
   setItems (state, payload) {
     const { type, items } = payload
     state.items[type] = items
-    console.log(state)
   },
   setDomains (state, payload) {
     const { domains } = payload
     state.domains = domains
+  },
+  setDomainInformation (state, payload) {
+    const { domainInformation } = payload
+    state.domainInformation = domainInformation
   }
 }

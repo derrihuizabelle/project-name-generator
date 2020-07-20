@@ -3,5 +3,6 @@ export default {
     prefixes: [],
     sufixes: []
   },
-  domains: []
+  domains: [],
+  domainInformation: []
 }

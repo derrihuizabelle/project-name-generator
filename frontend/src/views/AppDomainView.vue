@@ -1,6 +1,11 @@
 <template>
   <div>
-    <div class="container">
+    <div class="container" v-if="loading">
+      <div class="row d-flex justify-content-center">
+        <socket/>
+      </div>
+    </div>
+    <div class="container" v-else>
       <div class="text-left">
         <router-link to="/domains">Voltar</router-link>
         
@@ -15,7 +20,7 @@
 
           <div class="card-body">
             <ul class="list-group">
-              <li class="list-group-item" v-for="(domain, i) in domains" :key="i">
+              <li class="list-group-item" v-for="(domain, i) in information" :key="i">
                 <div class="row">
                   <div class="col-md">
                     {{ domain.extension }}
@@ -43,9 +48,15 @@
 </template>
 
 <script>
-import axios from 'axios'
+
+import { mapActions } from 'vuex'
+ import {Socket} from 'vue-loading-spinner'
+
 export default {
   name: 'AppDomainView',
+  components: {
+    Socket
+  },
   props: {
     domain: {
       type: String,
@@ -54,32 +65,17 @@ export default {
   },
   data () {
     return {
-      domains: []
+      loading: true,
+      information: []
     }
   },
-  beforeMount () {
-    axios({
-      url: 'http://localhost:4000',
-      method: 'post',
-      data: {
-        query: `
-          mutation ($name: String) {
-            domains: generateDomain(name: $name) {
-              name,
-              checkout,
-              available,
-              extension
-            }
-          }
-        `,
-        variables: {
-          name: this.domain
-        }
-      }
-    }).then(response => {
-      const query = response.data
-      this.domains = query.data.domains
-    })
-  }
+  async beforeMount () {
+    await this.generateDomain(this.domain)
+    this.information = this.$store.state.domainInformation
+    this.loading = false
+  },
+  methods: {
+    ...mapActions(['generateDomain'])
+	}
 }
 </script>

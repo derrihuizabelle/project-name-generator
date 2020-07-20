@@ -79,5 +79,28 @@ export default {
     const response = await request.post('/', data)
     const query = response.data
     context.commit('setDomains', {domains: query.data.domains} )
+  },
+  async generateDomain(context, payload) {
+    const data = {
+      query: `
+          mutation ($name: String) {
+            domains: generateDomain(name: $name) {
+              name,
+              checkout,
+              available,
+              extension
+            }
+          }
+        `,
+          variables: {
+            name: payload
+          }
+    }
+
+    const response = await request.post('/', data)
+    const query = response.data
+
+    context.commit('setDomainInformation', {domainInformation: query.data.domains})
+
   }
 }
