@@ -1,9 +1,3 @@
-# frontend
-
-## Project setup
-```
-npm install
-```
 
 ### PROJECT NAME GENERATOR
 ```
